@@ -1,4 +1,9 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import fs from 'fs';
+import React from 'react';
 import styled from 'styled-components';
 import Footer from '../../src/components/Footer';
 import GitHubCorner from '../../src/components/GitHubCorner';
@@ -18,17 +23,17 @@ export const QuizContainer = styled.div`
 `;
 
 function Image({ src, indice }) {
-  const key = '191e83';
+//  const [width, height] = [852, 480];
   const thumbnail = `
-https://api.screenshotmachine.com?key=${key}&url=${src}&dimension=1024x768&cacheLimit=2
+https://gerador-de-imagens-omariosouto.alura-challenges.vercel.app/api/image-generator/?url=${src}
   `;
 
   return (
     <a href={src} style={{ display: 'inline-block', fontSize: '0' }}>
       <img
         style={{ width: '100%', height: '250px', objectFit: 'cover' }}
-        width='1024'
-        height='768'
+        // width={width}
+        // height={height}
         src={thumbnail}
       />
     </a>
@@ -37,19 +42,11 @@ https://api.screenshotmachine.com?key=${key}&url=${src}&dimension=1024x768&cache
 
 export default function ContributorsPage({ contributors }) {
   return (
-    <QuizBackground
-      backgroundImage={
-        'https://www.alura.com.br/assets/img/imersoes/react-2/fundo-do-mar-imersao-react-2-01.1609262503.svg'
-      }
-    >
-      <QuizContainer
-        style={{ margin: 'auto', padding: '5%', maxWidth: '1400px' }}
-      >
+    <QuizBackground backgroundImage="https://www.alura.com.br/assets/img/imersoes/react-2/fundo-do-mar-imersao-react-2-01.1609262503.svg">
+      <QuizContainer style={{ margin: 'auto', padding: '5%', maxWidth: '1400px' }}>
         <QuizLogo />
-        <Widget
-          style={{ maxWidth: '350px', marginLeft: 'auto', marginRight: 'auto' }}
-        >
-          <Widget.Header sytle={{ justifyContent: 'center' }}>
+        <Widget style={{ maxWidth: '350px', marginLeft: 'auto', marginRight: 'auto' }}>
+          <Widget.Header style={{ justifyContent: 'center' }}>
             <h1 style={{ fontSize: '25px' }}>Galeria de Projetos</h1>
           </Widget.Header>
           <Widget.Content>
@@ -63,37 +60,32 @@ export default function ContributorsPage({ contributors }) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gridGap: '1em',
           }}
         >
-          {contributors.map(({ user, projectUrl }, indice) => (
-            <Widget style={{ maxWidth: '400px' }}>
-              <Widget.Header style={{ alignItems: 'center' }}>
-                <img
-                  width='25'
-                  height='25'
-                  src={`https://github.com/${user}.png`}
-                  style={{ marginRight: '15px', borderRadius: '100%' }}
-                />
-                <h2>
-                  <a
-                    href={`https://github.com/${user}`}
-                    style={{ color: 'inherit' }}
-                  >
-                    @{user}
-                  </a>
-                </h2>
-              </Widget.Header>
-              <Widget.Content style={{ padding: 0 }}>
-                <Image indice={indice} src={projectUrl} />
-              </Widget.Content>
-            </Widget>
-          ))}
+          {
+            contributors.map(({ user, projectUrl }, indice) => (
+              <Widget style={{ maxWidth: '400px' }} key={indice}>
+                <Widget.Header style={{ alignItems: 'center' }}>
+                  <img width="25" height="25" src={`https://github.com/${user}.png`} style={{ marginRight: '15px', borderRadius: '100%' }} />
+                  <h2>
+                    <a href={`https://github.com/${user}`} style={{ color: 'inherit' }}>
+                      @
+                      {user}
+                    </a>
+                  </h2>
+                </Widget.Header>
+                <Widget.Content style={{ padding: 0 }}>
+                  <Image indice={indice} src={projectUrl} />
+                </Widget.Content>
+              </Widget>
+            ))
+          }
         </div>
         <Footer />
       </QuizContainer>
-      <GitHubCorner projectUrl='https://github.com/afonsoamaro' />
+      <GitHubCorner projectUrl="https://github.com/omariosouto" />
     </QuizBackground>
   );
 }
