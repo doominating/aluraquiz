@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
+import PropTypes from "prop-types";
+import React from "react";
+import styled from "styled-components";
 // import img from "../../assets/nerdinho.png";
 
 // eslint-disable-next-line no-unused-vars
@@ -9,7 +9,15 @@ function Logo({ className }) {
   return (
     <img
       alt=""
-      style={{ width: '40%', height: '40%', objectFit: 'cover' }}
+      style={{
+        width: "46%",
+        height: "40%",
+        objectFit: "cover",
+        marginLeft: "25px",
+        zIndex: "100",
+        position: "absolute",
+        top: "-180px",
+      }}
       width="1024"
       height="768"
       src="/assets/nerdinho.png"

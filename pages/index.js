@@ -1,13 +1,13 @@
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import db from "../db.json";
-import Button from '../src/components/Button';
+import Button from "../src/components/Button";
 import Footer from "../src/components/Footer";
 import GitHubCorner from "../src/components/GitHubCorner";
-import Input from '../src/components/Input';
-import Link from '../src/components/Link';
+import Input from "../src/components/Input";
+import Link from "../src/components/Link";
 import QuizBackground from "../src/components/QuizBackground";
 import QuizLogo from "../src/components/QuizLogo";
 import Widget from "../src/components/Widget";
@@ -24,6 +24,8 @@ const QuizContainer = styled.div`
   max-width: 350px;
   padding-top: 45px;
   margin: auto 10%;
+  position: relative;
+  top: 250px;
   @media screen and (max-width: 500px) {
     margin: auto;
     padding: 15px;
@@ -32,18 +34,27 @@ const QuizContainer = styled.div`
 
 export default function Home() {
   const router = useRouter();
-  const [name, setName] = React.useState('');
+  const [name, setName] = React.useState("");
 
   return (
     <QuizBackground backgroundImage={db.bg}>
-      <QuizContainer>
+      <QuizContainer
+        as={motion.section}
+        transition={{ delay: 0, duration: 0.5 }}
+        variants={{
+          show: { opacity: 1, y: "0" },
+          hidden: { opacity: 0, y: "100%" },
+        }}
+        initial="hidden"
+        animate="show"
+      >
         <QuizLogo />
         <Widget
           as={motion.section}
           transition={{ delay: 0, duration: 0.5 }}
           variants={{
-            show: { opacity: 1, y: '0' },
-            hidden: { opacity: 0, y: '100%' },
+            show: { opacity: 1, y: "0" },
+            hidden: { opacity: 0, y: "100%" },
           }}
           initial="hidden"
           animate="show"
@@ -53,10 +64,11 @@ export default function Home() {
           </Widget.Header>
           <Widget.Content>
             <p>{db.description}</p>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              router.push(`/quiz?name=${name}`);
-            }}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                router.push(`/quiz?name=${name}`);
+              }}
             >
               <Input
                 name="nomeDoUsuario"
@@ -88,10 +100,10 @@ export default function Home() {
             <ul>
               {db.external.map((linkExterno) => {
                 const [projectName, githubUser] = linkExterno
-                  .replace(/\//g, '')
-                  .replace('https:', '')
-                  .replace('.vercel.app', '')
-                  .split('.');
+                  .replace(/\//g, "")
+                  .replace("https:", "")
+                  .replace(".vercel.app", "")
+                  .split(".");
 
                 return (
                   <li key={linkExterno}>
